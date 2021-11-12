@@ -23,17 +23,19 @@
 			<button class="close-button">&times;</button>
 		</div>
 		<div id="task-modal-body">
-			<input type="text" id="task-title" placeholder="Task Name">
+			<label for="task-title">Task:</label>
+			<input type="text" name="task-title" id="task-title" placeholder="Task Name">		
 			<label for="due-date">Due Date:</label>
 			<input type="date" id="due-date" name="due-date">
 			<label for="priority">Priority:</label>
-			<select name="priority" id="task-priority">
+			<select name="priority" id="priority">
 				<option value="low">Low</option>
 				<option value="medium">Medium</option>
 				<option value="urgent">Urgent</option>
-			</select>
+			</select>	
 			<label for="description">Task Description:</label>
-			<textarea name="description" id="" cols="30" rows="6"></textarea>
+			<textarea name="description" id="description" cols="30" rows="6"></textarea>	
+			<button id="task-submit">Add Task</button>
 		</div>
 	</div>
 	<div id=project-modal>
@@ -41,7 +43,11 @@
 			<h2 class="modal-title">Add Project</h2>
 			<button class="close-button">&times;</button>
 		</div>
-		<input type="text" id="project-title">
+		<div id=project-title>
+			<label for="project-title-input">Project Name:</label>
+			<input type="text" name="project-title-input" id="project-title-input">
+		</div>
+		<button id="project-submit">Add Project</button>
 	</div>
 	
 	<script src="main.js"></script>
