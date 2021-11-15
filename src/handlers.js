@@ -1,4 +1,5 @@
 import dom from './dom';
+import projects from './projects';
 
 const handlers = (() => {
   function clickHandlers() {
@@ -12,6 +13,15 @@ const handlers = (() => {
       else if (e.target.className === 'close-button') {
         dom.hideProjectModal();
         dom.hideTaskModal();
+      }
+      else if (e.target.id === 'task-submit') {
+        dom.hideTaskModal();
+      }
+      else if (e.target.id === 'project-submit') {
+        projects.addProject();
+        dom.renderProjOptions();
+        dom.hideProjectModal();
+        dom.clearProjForm();
       }
     });
   }
