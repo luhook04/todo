@@ -1,9 +1,12 @@
 import projects from './projects';
+import tasks from './tasks';
 
 const dom = (() => {
   const taskModal = document.querySelector('#task-modal-bg');
   const projectModal = document.querySelector('#project-modal-bg');
   const selectProj = document.querySelector('#select-project');
+  const projContainer = document.querySelector('#project-container');
+  const taskContainer = document.querySelector('#task-container');
   const body = document.querySelector('body');
 
   function openTaskModal() {
@@ -27,7 +30,38 @@ const dom = (() => {
     projTitle.value = '';
   }
 
-  // renderProjOption has bug that keeps rendering all projects
+  function clearTaskForm() {
+    const taskTitle = document.querySelector('#task-title');
+    const taskProject = document.querySelector('#select-project');
+    const taskDueDate = document.querySelector('#due-date');
+    const taskPriority = document.querySelector('#priority');
+    const taskDescription = document.querySelector('#description');
+
+    taskTitle.value = '';
+    taskProject.value = 'None';
+    taskDueDate.value = '';
+    taskPriority.value = 'Low';
+    taskDescription.value = '';
+  }
+
+  function showTasks() {
+    taskContainer.innerHTML = `
+    	<h3 id="all-tasks">All Tasks</h3>
+    `;
+    tasks.allTasks.forEach((task) => {
+      const taskDiv = document.createElement('div');
+      taskDiv.id = 'task-list-item';
+      taskDiv.innerHTML = `
+      <p>${task.title}</p> 
+      <p class="task-display">Project: ${task.project}</p>   
+      <p class="task-display">${task.dueDate}</p>
+      <p class="task-display">${task.priority}</p>
+      <i class="fas fa-trash"></i>
+      `;
+      taskContainer.appendChild(taskDiv);
+    });
+  }
+
   function renderProjOptions() {
     selectProj.innerHTML = `
       <option value="">Choose Project</option>
@@ -41,14 +75,41 @@ const dom = (() => {
     });
   }
 
+  function deleteProject(e) {
+    console.log(e.target);
+
+    projects.projectList.splice(e.target.dataset.indexNumber, 1);
+  }
+
+  function showProjects() {
+    projContainer.innerHTML = `
+      <h3 id="project-display">Projects</h3>
+    `;
+    projects.projectList.forEach((project) => {
+      const li = document.createElement('li');
+      li.id = 'project-list-item';
+      li.innerHTML = `
+      ${project.title}
+      <i class="fas fa-trash delete-project" data-index-number=${projects.projectList.indexOf(
+        project
+      )}></i>
+      `;
+      projContainer.appendChild(li);
+    });
+  }
+
   return {
     body,
+    deleteProject,
     openTaskModal,
     openProjectModal,
     hideProjectModal,
     hideTaskModal,
     clearProjForm,
-    renderProjOptions
+    clearTaskForm,
+    renderProjOptions,
+    showProjects,
+    showTasks
   };
 })();
 

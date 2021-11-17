@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie-edge">
-	<link rel="stylesheet" href="../dist/style.css">
+	<link rel="stylesheet" href="./css/all.css">
+	<link rel="stylesheet" href="./css/style.css">
 	<title>Todo-List</title>
 </head>
 
@@ -15,8 +16,12 @@
 		<button id='task-btn'>Add Task</button>
 		<button id='project-btn'>Add Project</button>
 	</header>
-	<div id="project-container"></div>
-	<div id="task-container"></div>
+	<div id="project-container">
+		<h3 id="project-display">Projects</h3>
+	</div>
+	<div id="task-container">
+		<h3 id="all-tasks">All Tasks</h3>
+	</div>
 	<div id="task-modal-bg">
 		<div id="task-modal">
 			<div class="modal-header">
@@ -28,16 +33,15 @@
 				<input type="text" name="task-title" id="task-title" placeholder="Task Name">
 				<label for="project">Project:</label>
 				<select name="project" placeholder="Project" id="select-project">
-					<option value="">Choose Project</option>
 					<option value="none">None</option>
 				</select>		
 				<label for="due-date">Due Date:</label>
 				<input type="date" id="due-date" name="due-date">
 				<label for="priority">Priority:</label>
 				<select name="priority" id="priority">
-					<option value="low">Low</option>
-					<option value="medium">Medium</option>
-					<option value="urgent">Urgent</option>
+					<option value="Low">Low</option>
+					<option value="Medium">Medium</option>
+					<option value="Urgent">Urgent</option>
 				</select>	
 				<label for="description">Task Description:</label>
 				<textarea name="description" id="description" cols="30" rows="6"></textarea>	

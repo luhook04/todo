@@ -11,8 +11,13 @@ const projects = (() => {
     console.log(projectList);
   }
 
+  function deleteProject() {
+    let index = projectList.indexOf();
+    projectList.splice(index, 1);
+  }
   return {
     projectList,
+    deleteProject,
     addProject
   };
 })();
