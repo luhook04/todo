@@ -11,27 +11,44 @@ const tasks = (() => {
   let allTasks = [];
 
   function addTask() {
-    let newTask = todoFactory(
-      taskTitle.value,
-      projectSelection.value,
-      priority.value,
-      dueDate.value,
-      taskDescription.value
-    );
+    if (
+      taskTitle.value == '' ||
+      projectSelection.value == '' ||
+      priority.value == '' ||
+      dueDate.value == ''
+    ) {
+      alert('Please fill all inputs.');
+    }
+    else {
+      let newTask = todoFactory(
+        taskTitle.value,
+        projectSelection.value,
+        priority.value,
+        dueDate.value,
+        taskDescription.value
+      );
 
-    allTasks.push(newTask);
-    console.log(allTasks);
+      allTasks.push(newTask);
+      console.log(allTasks);
+      projects.projectList.forEach((proj) => {
+        const projectSelect = document.querySelector('#select-project');
+        if (projectSelect.value === proj.title) {
+          proj.tasks.push(newTask);
+        }
+      });
+    }
+  }
+
+  function orderTasks() {
     projects.projectList.forEach((proj) => {
-      const projectSelect = document.querySelector('#select-project');
-      if (projectSelect.value === proj.title) {
-        proj.tasks.push(newTask);
-      }
+      proj.tasks = proj.tasks.filter((task) => allTasks.includes(task));
     });
   }
 
   return {
     allTasks,
-    addTask
+    addTask,
+    orderTasks
   };
 })();
 

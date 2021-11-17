@@ -56,7 +56,9 @@ const dom = (() => {
       <p class="task-display">Project: ${task.project}</p>   
       <p class="task-display">${task.dueDate}</p>
       <p class="task-display">${task.priority}</p>
-      <i class="fas fa-trash"></i>
+      <i class="fas fa-trash delete-task" data-task-num=${tasks.allTasks.indexOf(
+        task
+      )} data-project-num=${projects.projectList}></i>
       `;
       taskContainer.appendChild(taskDiv);
     });
@@ -76,9 +78,15 @@ const dom = (() => {
   }
 
   function deleteProject(e) {
-    console.log(e.target);
-
     projects.projectList.splice(e.target.dataset.indexNumber, 1);
+  }
+
+  function deleteTask(e) {
+    tasks.allTasks.splice(e.target.dataset.taskNum, 1);
+
+    projects.projectList.forEach((proj) => {
+      console.log(proj);
+    });
   }
 
   function showProjects() {
@@ -100,6 +108,7 @@ const dom = (() => {
 
   return {
     body,
+    deleteTask,
     deleteProject,
     openTaskModal,
     openProjectModal,

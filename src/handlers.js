@@ -30,7 +30,16 @@ const handlers = (() => {
       }
       else if (e.target.className === 'fas fa-trash delete-project') {
         dom.deleteProject(e);
+        projects.removeTasksWithProj(e);
+        dom.renderProjOptions();
         dom.showProjects();
+        dom.showTasks();
+      }
+      else if (e.target.className === 'fas fa-trash delete-task') {
+        dom.deleteTask(e);
+        tasks.orderTasks();
+        dom.showProjects();
+        dom.showTasks();
       }
     });
   }
