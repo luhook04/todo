@@ -3,6 +3,7 @@ import tasks from './tasks';
 
 const projects = (() => {
   let projectList = [];
+  let projectNames = [];
 
   const projName = document.querySelector('#project-title-input');
 
@@ -13,6 +14,7 @@ const projects = (() => {
     else {
       let newProj = projectFactory(projName.value);
       projectList.push(newProj);
+      projectNames.push(projName.value);
       console.log(projectList);
     }
   }
@@ -21,13 +23,15 @@ const projects = (() => {
     tasks.allTasks.forEach((task) => {
       if (task.project == e.target.parentNode.textContent.trim()) {
         task.project = '';
-      }
-      if (task.project === '') {
-        tasks.allTasks.splice(tasks.allTasks.indexOf(task), 1);
+        tasks.allTasks = tasks.allTasks.filter(
+          (task) => task.project !== ''
+        );
       }
     });
   }
+
   return {
+    projectNames,
     projectList,
     addProject,
     removeTasksWithProj

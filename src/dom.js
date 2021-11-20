@@ -3,6 +3,7 @@ import tasks from './tasks';
 
 const dom = (() => {
   const taskModal = document.querySelector('#task-modal-bg');
+  const container = document.querySelector('#project-tasks-container');
   const projectModal = document.querySelector('#project-modal-bg');
   const selectProj = document.querySelector('#select-project');
   const projContainer = document.querySelector('#project-container');
@@ -79,6 +80,7 @@ const dom = (() => {
 
   function deleteProject(e) {
     projects.projectList.splice(e.target.dataset.indexNumber, 1);
+    projects.projectNames.splice(e.target.dataset.indexNumber, 1);
   }
 
   function deleteTask(e) {
@@ -106,9 +108,75 @@ const dom = (() => {
     });
   }
 
+  function clearProjTasks() {
+    container.innerHTML = '';
+  }
+
+  function showProjectTasks(e) {
+    projects.projectList.forEach((project) => {
+      if (project.title === e.target.textContent.trim()) {
+        container.innerHTML = `
+        <h3 id="project-tasks-title">${project.title}</h3>
+        `;
+        project.tasks.forEach((task) => {
+          let projTasksDiv = document.createElement('div');
+          projTasksDiv.innerHTML = `
+          <p>${task.title}</p>  
+          <p class="task-display">${task.dueDate}</p>
+          <p class="task-display">${task.priority}</p>
+        
+            `;
+          container.appendChild(projTasksDiv);
+        });
+      }
+    });
+  }
+
+  function projTaskDisplayCheck() {
+    const projTaskTitle = document.querySelector('#project-tasks-title');
+    projects.projectList.forEach((project) => {
+      if (project.title === projTaskTitle.textContent) {
+        if (
+          project.tasks.length === 0 ||
+          projects.projectNames.indexOf(projTaskTitle.textContent) === -1
+        ) {
+          container.innerHTML = `
+            
+            `;
+        }
+        else if (project.tasks.length > 0) {
+          console.log(project.tasks);
+          container.innerHTML = `
+            <h3 id="project-tasks-title">${project.title}</h3>
+            `;
+          project.tasks.forEach((task) => {
+            let projTasksDiv = document.createElement('div');
+            projTasksDiv.innerHTML = `
+              <p>${task.title}</p>  
+              <p class="task-display">${task.dueDate}</p>
+              <p class="task-display">${task.priority}</p>
+              
+              `;
+            container.appendChild(projTasksDiv);
+          });
+        }
+      }
+    });
+    if (projTaskTitle !== null) {
+      if (
+        projects.projectNames.indexOf(projTaskTitle.textContent) === -1
+      ) {
+        container.innerHTML = '';
+      }
+    }
+  }
+
   return {
     body,
     deleteTask,
+    clearProjTasks,
+    showProjectTasks,
+    projTaskDisplayCheck,
     deleteProject,
     openTaskModal,
     openProjectModal,

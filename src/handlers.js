@@ -34,12 +34,19 @@ const handlers = (() => {
         dom.renderProjOptions();
         dom.showProjects();
         dom.showTasks();
+        dom.projTaskDisplayCheck();
       }
       else if (e.target.className === 'fas fa-trash delete-task') {
         dom.deleteTask(e);
         tasks.orderTasks();
         dom.showProjects();
         dom.showTasks();
+        dom.projTaskDisplayCheck();
+      }
+      else if (e.target.id === 'project-list-item') {
+        dom.clearProjTasks();
+        dom.showProjectTasks(e);
+        dom.projTaskDisplayCheck();
       }
     });
   }
