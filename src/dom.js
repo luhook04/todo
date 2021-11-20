@@ -49,19 +49,25 @@ const dom = (() => {
     taskContainer.innerHTML = `
     	<h3 id="all-tasks">All Tasks</h3>
     `;
+
     tasks.allTasks.forEach((task) => {
-      const taskDiv = document.createElement('div');
-      taskDiv.id = 'task-list-item';
-      taskDiv.innerHTML = `
-      <p>${task.title}</p> 
-      <p class="task-display">Project: ${task.project}</p>   
-      <p class="task-display">${task.dueDate}</p>
-      <p class="task-display">${task.priority}</p>
-      <i class="fas fa-trash delete-task" data-task-num=${tasks.allTasks.indexOf(
-        task
-      )} data-project-num=${projects.projectList}></i>
-      `;
-      taskContainer.appendChild(taskDiv);
+      if (task.project == '') {
+        return;
+      }
+      else {
+        const taskDiv = document.createElement('div');
+        taskDiv.id = 'task-list-item';
+        taskDiv.innerHTML = `
+        <p>${task.title}</p> 
+        <p class="task-display">Project: ${task.project}</p>   
+        <p class="task-display">${task.dueDate}</p>
+        <p class="task-display">${task.priority}</p>
+        <i class="fas fa-trash delete-task" data-task-num=${tasks.allTasks.indexOf(
+          task
+        )} data-project-num=${projects.projectList}></i>
+          `;
+        taskContainer.appendChild(taskDiv);
+      }
     });
   }
 

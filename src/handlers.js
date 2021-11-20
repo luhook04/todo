@@ -29,8 +29,8 @@ const handlers = (() => {
         dom.clearProjForm();
       }
       else if (e.target.className === 'fas fa-trash delete-project') {
-        dom.deleteProject(e);
         projects.removeTasksWithProj(e);
+        dom.deleteProject(e);
         dom.renderProjOptions();
         dom.showProjects();
         dom.showTasks();

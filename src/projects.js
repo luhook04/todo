@@ -4,7 +4,7 @@ import tasks from './tasks';
 const projects = (() => {
   let projectList = [];
   let projectNames = [];
-
+  let helper;
   const projName = document.querySelector('#project-title-input');
 
   function addProject() {
@@ -20,17 +20,19 @@ const projects = (() => {
   }
 
   function removeTasksWithProj(e) {
-    tasks.allTasks.forEach((task) => {
-      if (task.project == e.target.parentNode.textContent.trim()) {
-        task.project = '';
-        tasks.allTasks = tasks.allTasks.filter(
-          (task) => task.project !== ''
-        );
-      }
-    });
+    if (tasks.allTasks.length > 0) {
+      tasks.allTasks.forEach((task) => {
+        if (task.project == e.target.parentNode.textContent.trim()) {
+          task.project = '';
+          helper = tasks.allTasks.filter((task) => task.project !== '');
+          console.log(helper);
+        }
+      });
+    }
   }
 
   return {
+    helper,
     projectNames,
     projectList,
     addProject,
