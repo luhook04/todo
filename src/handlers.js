@@ -20,6 +20,7 @@ const handlers = (() => {
         dom.showTasks();
         dom.hideTaskModal();
         dom.clearTaskForm();
+        dom.projTaskDisplayCheck();
       }
       else if (e.target.id === 'project-submit') {
         projects.addProject();

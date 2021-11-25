@@ -144,7 +144,7 @@ const dom = (() => {
       if (project.title === projTaskTitle.textContent) {
         if (
           project.tasks.length === 0 ||
-          projects.projectNames.indexOf(projTaskTitle.textContent) === -1
+          projects.projectNames.indexOf(project.title) === -1
         ) {
           container.innerHTML = `
             
@@ -157,6 +157,7 @@ const dom = (() => {
             `;
           project.tasks.forEach((task) => {
             let projTasksDiv = document.createElement('div');
+            projTasksDiv.className = 'proj-tasks';
             projTasksDiv.innerHTML = `
               <p>${task.title}</p>  
               <p class="task-display">${task.dueDate}</p>
